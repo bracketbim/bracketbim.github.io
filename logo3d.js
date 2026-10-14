@@ -111,7 +111,8 @@ function frame(now){
 }
 function size(){ const w = cv.clientWidth, h = cv.clientHeight; R.setSize(w, h, false); C.aspect = w / h; C.updateProjectionMatrix(); pm.uniforms.uPx.value = R.getPixelRatio(); }
 addEventListener('resize', size); size();
-addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+// mouse only: on touch screens the last tap would stay as the pointer and keep the sign turned to one side
+addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
 new IntersectionObserver(es => es.forEach(e => {
   const was = vis; vis = e.intersectionRatio >= .5;
   if (vis && !was) { t0 = null; requestAnimationFrame(frame); }
