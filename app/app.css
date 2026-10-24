@@ -176,6 +176,8 @@ h1{font-size:17px;font-weight:650;letter-spacing:-.2px;margin:0;display:flex;ali
 /* Название и под ним версия (07.10). Версия: моноширинный, чтобы хеш
    читался и сверялся посимвольно; отступ — под текст названия, после точки. */
 .brand-t{display:flex;flex-direction:column;gap:1px}
+/* версия — от буквы P названия (24.10, пользователь): отступ = ширина знака [b] (1.15em при 17px, 292:220) + зазор h1 */
+.brand-t > .tag-build{padding-left:calc(17px * 1.15 * 292 / 220 + 10px)}
 .tag-build{font-family:var(--mono);font-size:10.5px;letter-spacing:0;color:var(--text-3);
   padding-left:18px;line-height:1.2;cursor:help;white-space:nowrap}
 .theme{
@@ -775,7 +777,7 @@ nav button.nav-item.nav-locked:hover{background:none}
 /* шапка (24.10): знак [b] вместо точки, метка издания (full / demo) наезжает на правый верхний угол названия */
 .brand-sign{height:1.15em;width:auto;flex:none;color:var(--text)}
 .ed-name{position:relative;padding-right:14px}
-.ed-tag{position:absolute;top:-9px;right:-22px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
+.ed-tag{position:absolute;top:-1px;right:-22px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
   letter-spacing:.08em;text-transform:uppercase;color:#14110a;background:#f5b83d;transform:rotate(8deg);box-shadow:0 2px 6px rgba(0,0,0,.25)}
 /* образец кода КНК в демо: плашка над окном, сам код приглушён */
 .demo-sample{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 10px;padding:10px 14px;border-radius:var(--radius-sm, 8px);
