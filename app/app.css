@@ -773,6 +773,9 @@ nav button.nav-item.nav-locked:hover{background:none}
 .demo-card .demo-b{padding:2px 14px 12px;font-size:12.5px;line-height:1.5;color:var(--text-2)}
 .demo-card .demo-b p{margin:6px 0}
 .demo-card .demo-b a{color:var(--accent)}
+.demo-tag{margin-left:8px;padding:1px 7px;border-radius:999px;font:600 11px/1.6 var(--mono, monospace);letter-spacing:.06em;
+  text-transform:uppercase;vertical-align:middle;color:var(--accent);background:var(--surface-2)}
+#top .tag-build[hidden], #top .tags[hidden]{display:none}
 .demo-card .demo-legal{font-size:11.5px;color:var(--text-3)}
 
 .nav-aside{margin-top:6px;border-top:1px solid var(--line);padding-top:4px}
