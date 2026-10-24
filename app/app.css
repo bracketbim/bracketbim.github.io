@@ -776,8 +776,8 @@ nav button.nav-item.nav-locked:hover{background:none}
 .demo-card .demo-b a{color:var(--accent)}
 /* шапка (24.10): знак [b] вместо точки, метка издания (full / demo) наезжает на правый верхний угол названия */
 .brand-sign{height:1.15em;width:auto;flex:none;color:var(--text)}
-.ed-name{position:relative;padding-right:14px}
-.ed-tag{position:absolute;top:-1px;right:-22px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
+.ed-name{position:relative;margin-right:30px}
+.ed-tag{position:absolute;top:-1px;right:-30px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
   letter-spacing:.08em;text-transform:uppercase;color:#14110a;background:#f5b83d;transform:rotate(8deg);box-shadow:0 2px 6px rgba(0,0,0,.25)}
 /* образец кода КНК в демо: плашка над окном, сам код приглушён */
 .demo-sample{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 10px;padding:10px 14px;border-radius:var(--radius-sm, 8px);
@@ -787,6 +787,16 @@ nav button.nav-item.nav-locked:hover{background:none}
 .demo-sample a{color:var(--accent);font-weight:600}
 .demo-sample[hidden]{display:none}
 #code.demo-sample-code{opacity:.72}
+.theme[hidden]{display:none}
+/* демо: YouTube (Watch) и Telegram (Follow) справа снизу, выше кнопки «Сохранить» рабочего места КНК (right 22, bottom 22) */
+.demo-fab{position:fixed;right:22px;bottom:84px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.demo-fab-b{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px 0 12px;border-radius:999px;text-decoration:none;
+  font-weight:650;font-size:13.5px;color:var(--text);background:var(--surface);border:1px solid var(--line);box-shadow:0 4px 16px rgba(0,0,0,.25);
+  transition:transform .15s,border-color .15s}
+.demo-fab-b:hover{transform:translateY(-1px);border-color:var(--line-strong, var(--text-3))}
+.demo-fab-b:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.demo-fab-b svg{height:20px;width:auto;display:block}
+@media print{.demo-fab{display:none}}
 #top .tag-build[hidden], #top .tags[hidden]{display:none}
 .demo-card .demo-legal{font-size:11.5px;color:var(--text-3)}
 
