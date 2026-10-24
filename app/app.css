@@ -164,7 +164,6 @@ header{
 body.scrolled header{box-shadow:0 6px 16px -10px rgba(16,20,28,.5)}
 .brand{flex:1;min-width:260px;display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap}
 h1{font-size:17px;font-weight:650;letter-spacing:-.2px;margin:0;display:flex;align-items:center;gap:10px}
-h1 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
 .sub{color:var(--text-3);font-size:12.5px}
 /* авторство — синим, как акцент страницы (10.10, пользователь: «выдели синим в нашем стиле») */
 .brand .copy{color:var(--accent);font-size:11.5px;font-weight:600;letter-spacing:.01em;white-space:nowrap}
@@ -773,10 +772,10 @@ nav button.nav-item.nav-locked:hover{background:none}
 .demo-card .demo-b{padding:2px 14px 12px;font-size:12.5px;line-height:1.5;color:var(--text-2)}
 .demo-card .demo-b p{margin:6px 0}
 .demo-card .demo-b a{color:var(--accent)}
-/* шапка демо: знак [b] вместо точки, метка DEMO наезжает на правый верхний угол названия */
-.demo-sign{height:1.15em;width:auto;flex:none;color:var(--text)}
-.demo-name{position:relative;padding-right:14px}
-.demo-tag{position:absolute;top:-9px;right:-22px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
+/* шапка (24.10): знак [b] вместо точки, метка издания (full / demo) наезжает на правый верхний угол названия */
+.brand-sign{height:1.15em;width:auto;flex:none;color:var(--text)}
+.ed-name{position:relative;padding-right:14px}
+.ed-tag{position:absolute;top:-9px;right:-22px;padding:2px 6px;border-radius:999px;font:700 9.5px/1.2 var(--mono, monospace);
   letter-spacing:.08em;text-transform:uppercase;color:#14110a;background:#f5b83d;transform:rotate(8deg);box-shadow:0 2px 6px rgba(0,0,0,.25)}
 /* образец кода КНК в демо: плашка над окном, сам код приглушён */
 .demo-sample{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 10px;padding:10px 14px;border-radius:var(--radius-sm, 8px);
@@ -1048,7 +1047,7 @@ dialog.news ul{margin:4px 0 0;padding-left:18px}
 @media (prefers-reduced-motion: reduce){.saypop{animation:none}}
 .tt{position:fixed;z-index:1000;max-width:380px;background:#1f1f1f;color:#e8e8e8;border:1px solid #3a3a3a;border-radius:6px;padding:5px 9px;font:12px/1.4 var(--ui);box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;white-space:pre-line}
 
-.audit{margin-top:10px;font-size:12.5px}
+#audit{margin-top:10px;font-size:12.5px}
 .audit-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;
   font-size:11.5px;font-weight:550;border:1px solid var(--line)}
