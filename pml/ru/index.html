@@ -282,6 +282,8 @@ footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
 footer h4{margin:0 0 10px;color:var(--ink);font-size:14px}
 footer a{color:var(--ink2);text-decoration:none}footer a:hover{color:var(--amber)}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer .soc a{display:inline-flex;align-items:center;gap:10px}
+footer .soc .fi{width:20px;height:20px;flex:none}
 footer .legal{margin-top:26px;font-size:12.5px;line-height:1.55}
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:10px;font:600 14px var(--sans);transition:.2s;pointer-events:none;z-index:50}
 .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -343,13 +345,13 @@ footer .legal{margin-top:26px;font-size:12.5px;line-height:1.55}
       <li><a href="#/register">Реестр команд</a></li><li><a href="#/modules">Модули</a></li>
       <li><a href="#/gotchas">Ловушки</a></li><li><a href="#/myths">Мифы</a></li><li><a href="#/attributes">Атрибуты элементов</a></li><li><a href="#/syntax">Синтаксис команд</a></li><li><a href="#/report">Прислать отчёт о прогоне</a></li>
       <li><a id="ghfoot" href="#">Репозиторий на GitHub</a></li></ul></div>
-    <div><h4>bracketBIM</h4><ul>
-      <li><a href="https://bracketbim.com">bracketbim.com</a></li>
-      <li><a href="https://bracketbim.com/app/">PML Console — бесплатное демо</a></li>
-      <li><a href="https://t.me/bracketbim">Telegram</a></li>
-      <li><a href="https://www.youtube.com/channel/UCHJ7CHzWSxiN43U371hUpzQ">YouTube</a></li>
-      <li><a href="https://www.linkedin.com/in/iurii-shchegolev-a88b0bb8">LinkedIn</a></li>
-      <li><a href="mailto:info@bracketbim.com">info@bracketbim.com</a></li></ul></div>
+    <div><h4>bracketBIM</h4><ul class="soc">
+      <li><a href="https://bracketbim.com"><svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#f5b83d"/><path fill="#14110a" d="M5 4.5h4v1.6H6.8v11.8H9v1.6H5zM19 4.5h-4v1.6h2.2v11.8H15v1.6h4z"/><text x="12" y="16.2" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#14110a">b</text></svg><span>bracketbim.com</span></a></li>
+      <li><a href="https://bracketbim.com/app/"><svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#20232b"/><path fill="none" stroke="#f5b83d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6.5 8.5 10 12l-3.5 3.5M12.5 16h5"/></svg><span>PML Console — бесплатное демо</span></a></li>
+      <li><a href="https://t.me/bracketbim"><svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#26A5E4"/><g transform="translate(4.6 5.2) scale(.62)"><path fill="#fff" d="M21.9 4.6 18.7 19.8c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.1 13.5 1.3 12c-1-.3-1.1-1 .2-1.5L20.6 3.1c.9-.3 1.6.2 1.3 1.5z"/></g></svg><span>Telegram</span></a></li>
+      <li><a href="https://www.youtube.com/channel/UCHJ7CHzWSxiN43U371hUpzQ"><svg class="fi" viewBox="0 0 28 20" aria-hidden="true"><path fill="#FF0000" d="M27.4 3.1A3.5 3.5 0 0 0 24.9.6C22.7 0 14 0 14 0S5.3 0 3.1.6A3.5 3.5 0 0 0 .6 3.1C0 5.3 0 10 0 10s0 4.7.6 6.9a3.5 3.5 0 0 0 2.5 2.5C5.3 20 14 20 14 20s8.7 0 10.9-.6a3.5 3.5 0 0 0 2.5-2.5C28 14.7 28 10 28 10s0-4.7-.6-6.9z"/><path fill="#FFFFFF" d="M11.2 14.3 18.5 10l-7.3-4.3z"/></svg><span>YouTube</span></a></li>
+      <li><a href="https://www.linkedin.com/in/iurii-shchegolev-a88b0bb8"><svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M6.2 9.5h2.6V18H6.2zM7.5 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM10.5 9.5H13v1.2c.4-.7 1.3-1.4 2.7-1.4 2.8 0 3.3 1.8 3.3 4.2V18h-2.6v-4c0-1 0-2.2-1.4-2.2s-1.6 1-1.6 2.1V18h-2.6z"/></svg><span>LinkedIn</span></a></li>
+      <li><a href="mailto:info@bracketbim.com"><svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#f5b83d"/><path fill="none" stroke="#14110a" stroke-width="1.6" stroke-linejoin="round" d="M6.5 8.2h11v7.6h-11z M6.8 8.6l5.2 4.1 5.2-4.1"/></svg><span>info@bracketbim.com</span></a></li></ul></div>
   </div>
   <p class="legal">Код — MIT, тексты — CC BY 4.0. bracketPML — независимый проект, не связан с AVEVA и не одобрен ею; AVEVA и E3D — товарные знаки их владельцев. Прогоны идут на обезличенном учебном проекте. Всё, что пишет в модель, может её испортить: ставьте метку отката, проверяйте до SAVEWORK, пробуйте новый код на тестовом проекте. <span id="built"></span></p>
 </div></footer>
@@ -394,7 +396,8 @@ $('#theme').addEventListener('click', () => {
 });
 
 /* ---------- the other language, at the same place ---------- */
-$('#lang').addEventListener('click', e => { e.preventDefault(); location.href = e.currentTarget.getAttribute('href') + location.hash; });
+const LGB = $('#lang');      /* the English page goes out without it while RU_SWITCH is off (tools/pml_lib.py) */
+if(LGB) LGB.addEventListener('click', e => { e.preventDefault(); location.href = e.currentTarget.getAttribute('href') + location.hash; });
 
 /* ---------- search ---------- */
 const norm = s => String(s || '').toLowerCase().replace(/[«»“”"]/g, ' ');
