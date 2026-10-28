@@ -94,7 +94,7 @@ kbd{display:inline-block;min-width:24px;padding:2px 7px;border:1px solid var(--l
 .chip:hover{border-color:var(--amber);color:var(--ink)}
 
 /* status bar */
-.stbar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:34px 0 8px}
+.stbar{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:34px 0 8px}
 .stb{display:flex;flex-direction:column;gap:2px;text-align:left;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel);cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .15s}
 .stb:hover{border-color:var(--line2);transform:translateY(-1px)}
 .stb .n{font:700 30px/1.1 var(--mono);letter-spacing:-1px}
@@ -104,6 +104,7 @@ kbd{display:inline-block;min-width:24px;padding:2px 7px;border:1px solid var(--l
 .stb[aria-pressed="true"]{border-color:currentColor}
 .stb.st-ok{color:var(--ok)}.stb.st-bad{color:var(--bad)}.stb.st-mac{color:var(--mac)}.stb.st-doc{color:var(--doc)}.stb.st-ref{color:var(--ref)}
 .stb .n,.stb .l{color:inherit}.stb .m{color:var(--dim)}
+.stb.st-all{color:var(--ink)}.stb.st-all .dot{background:var(--amber)}
 .stb.st-ok .dot{background:var(--ok)}.stb.st-bad .dot{background:var(--bad)}.stb.st-mac .dot{background:var(--mac)}.stb.st-doc .dot{background:var(--doc)}.stb.st-ref .dot{background:var(--ref)}
 .meta-line{color:var(--dim);font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 16px}
 .meta-line b{color:var(--ink2);font-weight:600}
@@ -147,6 +148,8 @@ section.blk{padding:46px 0 10px}
 .side button.on{background:var(--amberD);color:var(--ink)}
 .side button .c{font:500 12px var(--mono);color:var(--dim)}
 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;color:var(--dim);font-size:14px}
+.tools .allst{border:1px solid var(--amber);background:transparent;color:var(--ink);border-radius:999px;padding:4px 11px;font:600 13px var(--mono);cursor:pointer}
+.tools .allst:hover{background:var(--panel2)}
 .tools .sel{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .tools .sel button{border:0;background:var(--panel);color:var(--ink2);padding:6px 11px;font:500 13px var(--sans);cursor:pointer}
 .tools .sel button[aria-pressed="true"]{background:var(--panel2);color:var(--ink);box-shadow:inset 0 -2px 0 var(--amber)}
@@ -476,10 +479,10 @@ function renderHome(){
     '<div class="wrap"><section class="hero">' +
       '<div class="kicker">Open library · <b>AVEVA E3D 2.1</b></div>' +
       '<h1>PML, <em>tested</em> —<br>not guessed.</h1>' +
-      '<p class="lead">' + D.total + ' commands tested in E3D 2.1, safe patterns with a probe for your own E3D, and the traps we found the hard way. Search by command — or paste the error E3D just printed.</p>' +
+      '<p class="lead">' + D.total + ' commands, ' + (c.ok + c.bad + c.mac) + ' of them tested in E3D 2.1, safe patterns with a probe for your own E3D, and the traps we found the hard way. Search by command — or paste the error E3D just printed.</p>' +
       '<div class="search" role="search">' + ICON.lens + '<label class="sr" for="q">Search the library</label><input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="UNDODB, «Invalid syntax», rollback…"><div class="hint"><button class="clear" id="clr" type="button" hidden>Clear</button><kbd>/</kbd></div></div>' +
       '<div class="try">Try: ' + TRY.map(t => '<button class="chip" type="button" data-try="' + esc(t) + '">' + esc(t) + '</button>').join('') + '</div>' +
-      '<div class="stbar" id="stbar">' + ORDER.map(s => '<button class="stb st-' + s + '" type="button" data-st="' + s + '" aria-pressed="false"><span class="n">' + c[s] + '</span><span class="l"><span class="dot"></span>' + esc(ST[s].name) + '</span><span class="m">' + esc(ST[s].means) + '</span></button>').join('') + '</div>' +
+      '<div class="stbar" id="stbar"><button class="stb st-all" type="button" data-st="" aria-pressed="false"><span class="n">' + D.total + '</span><span class="l"><span class="dot"></span>All commands</span><span class="m">Every row of the register, any status.</span></button>' + ORDER.map(s => '<button class="stb st-' + s + '" type="button" data-st="' + s + '" aria-pressed="false"><span class="n">' + c[s] + '</span><span class="l"><span class="dot"></span>' + esc(ST[s].name) + '</span><span class="m">' + esc(ST[s].means) + '</span></button>').join('') + '</div>' +
       '<div class="meta-line"><span>Updated <b>' + fd(D.generated, true) + '</b></span><span>A status changes only after a test in E3D 2.1</span><span>Click a status to filter</span></div>' +
     '</section><div id="list"></div></div>';
   const q = $('#q');
@@ -489,8 +492,9 @@ function renderHome(){
   q.addEventListener('keydown', e => { if(e.key === 'Escape'){ q.value = ''; setState({q: '', open: ''}); } });
   $('#clr').addEventListener('click', () => { q.value = ''; setState({q: '', st: [], g: null, open: ''}); q.focus(); });
   $$('[data-try]').forEach(b => b.addEventListener('click', () => { q.value = b.dataset.try; setState({q: b.dataset.try, open: ''}, true); }));
-  $$('#stbar [data-st]').forEach(b => b.addEventListener('click', () => {
-    const st = S.st.indexOf(b.dataset.st) >= 0 ? S.st.filter(x => x !== b.dataset.st) : S.st.concat(b.dataset.st);
+  $$('#stbar [data-st]').forEach(b => b.addEventListener('click', e => {
+    const k = b.dataset.st, on = S.st.indexOf(k) >= 0;
+    const st = !k ? [] : (e.ctrlKey || e.metaKey || e.shiftKey) ? (on ? S.st.filter(x => x !== k) : S.st.concat(k)) : (on && S.st.length === 1 ? [] : [k]);
     setState({st, open: ''}); $('#register') && $('#register').scrollIntoView({block: 'start'});
   }));
   renderList();
@@ -499,7 +503,7 @@ function renderHome(){
 function renderList(){
   const L = $('#list'); if(!L) return;
   const T = toks(S.q), Q = norm(S.q).trim();
-  $$('#stbar [data-st]').forEach(b => b.setAttribute('aria-pressed', S.st.indexOf(b.dataset.st) >= 0));
+  $$('#stbar [data-st]').forEach(b => b.setAttribute('aria-pressed', b.dataset.st ? S.st.indexOf(b.dataset.st) >= 0 : !S.st.length));
   const clr = $('#clr'); if(clr) clr.hidden = !(S.q || S.st.length || S.g !== null);
   const searching = T.length > 0;
   app.classList.toggle('searching', searching);
@@ -523,7 +527,7 @@ function renderList(){
   h += '<section class="blk" id="register"><div class="blk-h"><div><div class="num">REGISTER</div><h2>Every command, with its status</h2><p>Grouped as you meet them in work: where to stand, what to create, how to look, how to change safely. Click a row for the note and a link.</p></div></div>' +
        '<div class="reg"><nav class="side" aria-label="Sections"><div class="h">Sections</div><button type="button" data-g="" class="' + (S.g === null ? 'on' : '') + '"><span>All sections</span><span class="c">' + Object.values(inGroupCount).reduce((a, b) => a + b, 0) + '</span></button>' +
        D.groups.map(g => '<button type="button" data-g="' + g.id + '" class="' + (S.g === g.id ? 'on' : '') + '"' + (inGroupCount[g.id] ? '' : ' disabled style="opacity:.4"') + '><span>' + esc(g.title.replace(' — ', ' · ')) + '</span><span class="c">' + (inGroupCount[g.id] || 0) + '</span></button>').join('') + '</nav><div>' +
-       '<div class="tools"><span>' + rows.length + ' of ' + D.total + ' rows' + (S.st.length ? ' · ' + S.st.map(s => ST[s].name).join(', ') : '') + '</span><span style="flex:1"></span><span>Order</span><div class="sel"><button type="button" data-sort="section" aria-pressed="' + (S.sort === 'section') + '">By section</button>' + (searching ? '<button type="button" data-sort="best" aria-pressed="' + (S.sort === 'best') + '">Best match</button>' : '') + '</div></div>';
+       '<div class="tools"><span>' + rows.length + ' of ' + D.total + ' rows' + (S.st.length ? ' · ' + S.st.map(s => ST[s].name).join(', ') : '') + '</span>' + (S.st.length ? '<button type="button" class="allst" data-allst>Show all ' + D.total + '</button>' : '') + '<span style="flex:1"></span><span>Order</span><div class="sel"><button type="button" data-sort="section" aria-pressed="' + (S.sort === 'section') + '">By section</button>' + (searching ? '<button type="button" data-sort="best" aria-pressed="' + (S.sort === 'best') + '">Best match</button>' : '') + '</div></div>';
   if(!rows.length){
     h += '<div class="empty"><b>Nothing here.</b><br>Try fewer words or another spelling. Tested a command that is not in the register? <a href="#/report">Send a test report</a> — it is how the register grows.</div>';
   } else if(S.sort === 'best' && searching){
@@ -539,6 +543,7 @@ function renderList(){
   h += '</div></div></section>';
   L.innerHTML = h;
   bindList();
+  $$('#list [data-allst]').forEach(b => b.addEventListener('click', () => setState({st: [], open: ''})));
   if(S.open){ const e = $('#r-' + S.open); if(e) e.scrollIntoView({block: 'center'}); }
 }
 
