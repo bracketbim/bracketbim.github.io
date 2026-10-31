@@ -57,13 +57,15 @@ code,kbd,pre{font-family:var(--mono)}
 
 /* nav */
 .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;gap:8px 18px;min-height:64px;height:auto;flex-wrap:wrap;padding:9px 0}
+.nav .wrap{display:flex;align-items:center;gap:8px 16px;height:64px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 19px var(--mono);letter-spacing:-.4px;white-space:nowrap}
 .logo svg{height:26px;width:auto}.logo b{color:var(--amber);font-weight:700}
-.nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0;flex-wrap:wrap;min-width:0;max-width:100%}
-.nav ul a{display:block;padding:7px 8px;border-radius:9px;text-decoration:none;color:var(--ink2);font-weight:500;font-size:14.5px;white-space:nowrap}
-@media (max-width:1100px){.nav .wrap{gap:14px}.nav ul a{font-size:13.5px;padding:6px 7px}}
-@media (max-width:560px){.logo span{display:none}.logo svg{height:24px}.nav .wrap{gap:10px}}
+.nav ul{display:flex;gap:1px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none;min-width:0;max-width:100%}
+.nav ul a{display:block;padding:7px 7px;border-radius:8px;text-decoration:none;color:var(--ink2);font-weight:500;font-size:13px;white-space:nowrap}
+/* если меню не влезает (узкий экран) — остаётся одной строкой: свайп + затухание края */
+.nav ul.more{mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent)}
+@media (max-width:1180px){.nav .wrap{gap:8px 12px}.nav ul a{font-size:12.5px;padding:6px 6px}}
+@media (max-width:560px){.logo span{display:none}.logo svg{height:24px}.nav .wrap{gap:8px}}
 .nav ul a:hover,.nav ul a.on{background:var(--panel2);color:var(--ink)}
 .nav .sp{flex:1}
 .ibtn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);cursor:pointer}
@@ -312,9 +314,9 @@ footer .legal{margin-top:10px;font-size:12.5px;line-height:1.55}
 }
 @media (max-width:640px){
   .wrap{padding:0 16px}
-  .nav .wrap{gap:10px;flex-wrap:wrap;height:auto;padding-top:10px}.nav .gh-btn span,.nav .demo span{display:none}
-  .nav ul{order:9;width:calc(100% + 32px);margin:0 -16px;padding:4px 12px 8px}
-  html{scroll-padding-top:120px}
+  .nav .wrap{gap:10px}.nav .gh-btn span,.nav .demo span{display:none}
+  .nav ul{padding:4px 0 8px}
+  html{scroll-padding-top:80px}
   .hero{padding:38px 0 18px}
   .search input{height:56px;font-size:17px;padding-right:56px}
   .search .hint kbd{display:none}
@@ -413,6 +415,15 @@ $('#theme').addEventListener('click', () => {
 /* ---------- the other language, at the same place ---------- */
 const LGB = $('#lang');      /* the English page goes out without it while RU_SWITCH is off (tools/pml_lib.py) */
 if(LGB) LGB.addEventListener('click', e => { e.preventDefault(); location.href = e.currentTarget.getAttribute('href') + location.hash; });
+
+/* меню всегда одной строкой; если не влезло — свайп, край затухает (01.11, пользователь: «не переносим») */
+const NAVL = $('#navl');
+if(NAVL){
+  const navFade = () => NAVL.classList.toggle('more', NAVL.scrollWidth > NAVL.clientWidth + 2);
+  navFade();
+  NAVL.addEventListener('scroll', navFade);
+  window.addEventListener('resize', navFade);
+}
 
 /* ---------- search ---------- */
 const norm = s => String(s || '').toLowerCase().replace(/[«»“”"]/g, ' ');
