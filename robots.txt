@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bracketbim.com/sitemap.xml
